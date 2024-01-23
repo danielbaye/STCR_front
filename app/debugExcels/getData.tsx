@@ -1,8 +1,10 @@
+import { mainPageTable } from "../types/tableTypes"
 
 
 
-export const getDebugData = async (startDate, endDate) => {
+export const getDebugData = async (startDate, endDate): Promise<mainPageTable> => {
 
+    const tableName = "table1"
     const headers: string[] = ["group", "revenue", "change"]
     const data: string[][][] = [[
         ["North", "1200230", "12.00"]],
@@ -19,12 +21,13 @@ export const getDebugData = async (startDate, endDate) => {
     [["total", '', "3.00"]]
     ]
 
-    return { headers, data }
+    return { tableName, headers, data }
 }
 
 
 
-export const getDebugData2 = async (startDate, endDate) => {
+export const getDebugData2 = async (startDate, endDate): Promise<mainPageTable> => {
+    const tableName = "table1"
 
     const headers: string[] = ["group", "revenue", "change2"]
     const data: string[][][] = [[
@@ -46,5 +49,5 @@ export const getDebugData2 = async (startDate, endDate) => {
     [["total", '', "4.00"]]
     ]
 
-    return { headers, data }
+    return { tableName, headers, data }
 }

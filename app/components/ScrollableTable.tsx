@@ -16,8 +16,6 @@ const ScrollableTable = ({ data }) => {
     const datarows = <Rows data={data.slice(1)} style={styles.row} textStyle={styles.text} />
     return (
         <View>
-          
-
             <Table borderStyle={{ borderWidth: 1, borderColor: '#C1C0B9' }}>
                 <Pressable onPress={handleOnClick}>
                     <Row data={headerRow} style={styles.row} textStyle={styles.text} />

@@ -7,31 +7,36 @@ import { MainDashboard } from "./MainDashboard";
 import { LoginPage } from "./LoginPage";
 import { AuthActions } from "../auth/reducer";
 import { getLocalAuth } from "../services/LocalStorate";
+import { useApiClient } from "../services/ApiService";
 
 const Stack = createStackNavigator();
 
 export const RouteNavigation = () => {
+    const apiClient = useApiClient()
     const userToken = useAuthState();
     const dispatch = useAuthDispatch();
 
+    const updateDispatch = async () => {
+        const localAuth = getLocalAuth()
+        console.log(localAuth)
+        if (await apiClient.checkToken(localAuth))
+            dispatch({
+                type: AuthActions.RestoreToken,
+                token: localAuth.accessToken,
+                userAttributes: localAuth.userAttributes
+            })
+    }
+
     useEffect(() => {
-        if (!userToken.userToken) {
-            const localAuth = getLocalAuth()
-            if (localAuth)
-                dispatch({
-                    type: AuthActions.RestoreToken,
-                    token: localAuth.accessToken,
-                    userAttributes: localAuth.userAttributes
-                })
-        }
+        updateDispatch()
     }, [dispatch]);
+
     return (
         <Stack.Navigator >
             {userToken?.userToken ?
                 <Stack.Screen
                     name="Home"
                     component={MainDashboard}
-                    options={{ title: 'Welcome' }}
                 />
                 :
                 <Stack.Screen name="login" component={LoginPage} />

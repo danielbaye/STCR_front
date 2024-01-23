@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, ScrollView, Text } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { styles } from "../styles"
 import ScrollableTable from './ScrollableTable';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Table, Row, Rows } from 'react-native-table-component';
+import { Table, Row } from 'react-native-table-component';
 
 
 export const GroupingTable: React.FC<{ data: string[][][], headers: string[] }> = ({

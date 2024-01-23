@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        
+
     },
     text: {
         fontSize: 16,
@@ -43,6 +43,11 @@ export const styles = StyleSheet.create({
         borderStyle: "solid",
         borderBlockColor: "black",
         borderWidth: 1
-    }
+    },
+    datePicker: {
+        width: 200,
+        marginBottom: 20,
+    },
+
 });
 

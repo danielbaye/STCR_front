@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState } from "react";
 import { TUser } from "../auth/reducer";
 import { getDebugData, getDebugData2 } from "../debugExcels/getData";
+import { mainPageTable } from "../types/tableTypes";
+
 
 export type AuthData = {
     accessToken: string,
@@ -18,7 +20,7 @@ const defaultAuthContext: AuthContext = {
 }
 const AuthContext = createContext<AuthContext>(defaultAuthContext);
 
-
+let accessToken = "user:password" //TODO: remove after debug, 
 
 class ApiClient {
     constructor(
@@ -26,7 +28,12 @@ class ApiClient {
     ) { }
     async login(username: string, password: string) {
         this.authContext.setAuthData({ accessToken: username + ":" + password, userAttributes: { name: 'admin', level: 3, email: "e@mail.com" } })
+        accessToken = username + ":" + password //TODO: remove after debug
         return this.authContext.authData
+    }
+    async checkToken(localAuth: AuthData): Promise<boolean> {
+        //TODO: remove after debug, exchange for a real function
+        return localAuth.accessToken == accessToken
     }
     getToken() {
         return this.authContext.authData
@@ -38,14 +45,14 @@ class ApiClient {
         return this.authContext.authData
     }
 
-    async getMainTable(startDate: Date, endDate: Date) {
-        console.log("getMainTable")
+    async getMainTable(startDate: Date, endDate: Date): Promise<mainPageTable> {
         return await getDebugData(startDate, endDate)
     }
-    async getSeconderyTable(startDate: Date, endDate: Date) {
-        console.log("getSeconderyTable")
+    async getSeconderyTable(startDate: Date, endDate: Date): Promise<mainPageTable> {
         return await getDebugData2(startDate, endDate)
     }
+
+
 }
 
 export const userIsLoggedIn = () => {
